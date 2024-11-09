@@ -21,6 +21,7 @@ score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add('hidden');
 
+//Inicializa puntajes para activePlayer
 const scores = [0, 0];
 let currentScore = 0;
 let activePlayer = 0;
@@ -62,11 +63,18 @@ btnRoll.addEventListener('click', function(){
 btnHold.addEventListener('click', function(){
     //1. Agrega score al jugador activo
     scores[activePlayer] += currentScore;
-    document.getElementById(`current--${activePlayer}`).textContent = scores[activePlayer];
+    document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
 
-    //2. Checkea si el score es >= 100, para terminar el juego
+    //2. Checkea si el score es >= 100
+    if(scores[activePlayer] >= 100){
+        //termina el juego
+        document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
+        document.querySelector(`.player--${activePlayer}`).classList.remove('player--active');
 
+    } else { //3. Sino cambia de jugador
+        switchPlayer();
+    }
 
-    //3. Sino cambia de jugador
-    switchPlayer();
+    
+    
 });
