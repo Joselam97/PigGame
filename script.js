@@ -25,6 +25,16 @@ const scores = [0, 0];
 let currentScore = 0;
 let activePlayer = 0;
 
+//funcion para cambiar de player
+const switchPlayer = function(){
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+        currentScore = 0;
+        activePlayer = activePlayer === 0 ? 1 : 0;
+
+        player0El.classList.toggle('player--active');
+        player1El.classList.toggle('player--active');
+}
+
 //Funcionalidad al dado
 btnRoll.addEventListener('click', function(){
     //1.Genera un roll random al dado
@@ -44,11 +54,19 @@ btnRoll.addEventListener('click', function(){
 
     } else { //Sino cambia al otro player
         //cambiando players entre player0 y player1
-        document.getElementById(`current--${activePlayer}`).textContent = 0;
-        currentScore = 0;
-        activePlayer = activePlayer === 0 ? 1 : 0;
-
-        player0El.classList.toggle('player--active');
-        player1El.classList.toggle('player--active');
+        switchPlayer();
     }
+});
+
+//Funcionalidad para boton Hold
+btnHold.addEventListener('click', function(){
+    //1. Agrega score al jugador activo
+    scores[activePlayer] += currentScore;
+    document.getElementById(`current--${activePlayer}`).textContent = scores[activePlayer];
+
+    //2. Checkea si el score es >= 100, para terminar el juego
+
+
+    //3. Sino cambia de jugador
+    switchPlayer();
 });
