@@ -165,3 +165,8 @@ main {
   font-weight: 700;
   color: #c7365f;
 }
+
+/*Esconde el dado al inicio del juego*/
+.hidden{
+    display: none;
+}
