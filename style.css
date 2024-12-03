@@ -1,20 +1,25 @@
+/* Import the "Nunito" font from Google Fonts for modern typography */
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
+/* Apply a uniform margin, padding, and inherit `box-sizing` for all elements */
 * {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
 }
 
+/* Set the base font size to 62.5% for easier rem calculations (1rem = 10px) */
 html {
   font-size: 62.5%;
   box-sizing: border-box;
 }
 
+/* Style for the body: uses "Nunito" font, centers content, 
+   and applies a gradient background */
 body {
   font-family: 'Nunito', sans-serif;
   font-weight: 400;
-  height: 100vh;
+  height: 100vh; /* Full height of the viewport */
   color: #333;
   background-image: linear-gradient(to top left, #753682 0%, #bf2e34 100%);
   display: flex;
@@ -23,29 +28,32 @@ body {
 }
 
 /* LAYOUT */
+/* Style for the main container, with a blurred semi-transparent background */
 main {
   position: relative;
   width: 100rem;
   height: 60rem;
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(200px);
-  filter: blur();
-  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
+  filter: blur(); /* Additional blur effect */
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25); /* Drop shadow */
   border-radius: 9px;
-  overflow: hidden;
-  display: flex;
+  overflow: hidden; /* Prevent content overflow */
+  display: flex; /* Flex container */
 }
 
+/* Style for each player's section */
 .player {
   flex: 50%;
   padding: 9rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stack child elements vertically */
   align-items: center;
-  transition: all 0.75s;
+  transition: all 0.75s; /* Smooth transition for changes */
 }
 
 /* ELEMENTS */
+/* Player name styling */
 .name {
   position: relative;
   font-size: 4rem;
@@ -56,13 +64,15 @@ main {
   margin-bottom: 1rem;
 }
 
+/* Player's total score */
 .score {
   font-size: 8rem;
   font-weight: 300;
   color: #c7365f;
-  margin-bottom: auto;
+  margin-bottom: auto; /* Pushes content below it to the bottom */
 }
 
+/* Highlight the active player */
 .player--active {
   background-color: rgba(255, 255, 255, 0.4);
 }
@@ -74,9 +84,10 @@ main {
 }
 
 .player--active .current {
-  opacity: 1;
+  opacity: 1; /* Fully visible for the active player */
 }
 
+/* Current score section */
 .current {
   background-color: #c7365f;
   opacity: 0.8;
@@ -85,9 +96,10 @@ main {
   width: 65%;
   padding: 2rem;
   text-align: center;
-  transition: all 0.75s;
+  transition: all 0.75s; /* Smooth transition for changes */
 }
 
+/* Label for the current score */
 .current-label {
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -95,40 +107,46 @@ main {
   color: #ddd;
 }
 
+/* Styling for the current score value */
 .current-score {
   font-size: 3.5rem;
 }
 
 /* ABSOLUTE POSITIONED ELEMENTS */
+/* General button styling */
 .btn {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust centering */
   color: #444;
-  background: none;
+  background: none; /* Transparent by default */
   border: none;
   font-family: inherit;
   font-size: 1.8rem;
   text-transform: uppercase;
   cursor: pointer;
   font-weight: 400;
-  transition: all 0.2s;
+  transition: all 0.2s; /* Smooth interaction effects */
 
+  /* Semi-transparent white background with blur */
   background-color: white;
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
 
-  padding: 0.7rem 2.5rem;
-  border-radius: 50rem;
-  box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
+  
+  padding: 0.7rem 2.5rem; /* Padding inside the button */
+  border-radius: 50rem; /* Fully rounded corners */
+  box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
+/* First letter of the button text is styled larger */
 .btn::first-letter {
   font-size: 2.4rem;
   display: inline-block;
   margin-right: 0.7rem;
 }
 
+/* Positioning for specific buttons */
 .btn--new {
   top: 4rem;
 }
@@ -139,34 +157,38 @@ main {
   top: 46.1rem;
 }
 
+/* Click effect for buttons */
 .btn:active {
-  transform: translate(-50%, 3px);
+  transform: translate(-50%, 3px); /* Slight downward shift */
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
 }
 
+/* Remove focus outline on buttons */
 .btn:focus {
   outline: none;
 }
 
+/* Styling for the dice image */
 .dice {
   position: absolute;
   left: 50%;
   top: 16.5rem;
   transform: translateX(-50%);
   height: 10rem;
-  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2); /* Shadow around dice */
 }
 
+/* Highlight the winner's section */
 .player--winner {
   background-color: #2f2f2f;
 }
 
 .player--winner .name {
-  font-weight: 700;
+  font-weight: 700; /* Bold font for winner's name */
   color: #c7365f;
 }
 
-/*Esconde el dado al inicio del juego*/
+/* Hidden class to initially hide elements like the dice */
 .hidden{
-    display: none;
+    display: none; /* Completely hide the element */
 }

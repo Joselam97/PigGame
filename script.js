@@ -1,115 +1,121 @@
+// Activates strict mode to enforce secure coding practices, such as preventing the use of undeclared variables.
 'use strict';
 
-// Seleccionando elementos
-const player0El = document.querySelector('.player--0');
+// Selecting elements from the DOM
+const player0El = document.querySelector('.player--0'); // Selects the section for Player 0 and 1
 const player1El = document.querySelector('.player--1');
 
-const score0El = document.querySelector('#score--0');
+const score0El = document.querySelector('#score--0'); // Selects the element displaying Player 0's and 1's total score
 const score1El = document.getElementById('score--1');
 
-const current0El = document.getElementById('current--0');
+const current0El = document.getElementById('current--0'); // Selects the element displaying Player 0's and 1's current score
 const current1El = document.getElementById('current--1');
 
-const diceEl = document.querySelector('.dice');
+const diceEl = document.querySelector('.dice'); // Selects the dice image element
 
-const btnNew = document.querySelector('.btn--new');
-const btnRoll = document.querySelector('.btn--roll');
-const btnHold = document.querySelector('.btn--hold');
+const btnNew = document.querySelector('.btn--new'); // Selects the "New Game" button
+const btnRoll = document.querySelector('.btn--roll'); // Selects the "Roll Dice" button
+const btnHold = document.querySelector('.btn--hold'); // Selects the "Hold" button
 
 
 
-//Variable para inicializar valores del player
+// Variables to manage game state
 let scores, currentScore, activePlayer, playing;
 
 
-//Inicializa el juego
+// Initializes game values and resets the game state
 const init = function () {
-  scores = [0, 0];
+  scores = [0, 0]; // An array to store the total scores of both players
   currentScore = 0;
   activePlayer = 0;
-  playing = true;
+  playing = true; // Indicates if the game is currently being played
 
+   // Resets the scores displayed on the screen
   current0El.textContent = 0;
   current1El.textContent = 0;
-
   score0El.textContent = 0;
   score1El.textContent = 0;
+
+  // Hides the dice image at the start
   diceEl.classList.add('hidden');
 
+  // Removes winner and active styles to reset players
   player0El.classList.remove('player--winner');
   player1El.classList.remove('player--winner');
 
-  player0El.classList.add('player--active');
-  player1El.classList.remove('player--active');
+  player0El.classList.add('player--active'); // Sets Player 0 as active
+  player1El.classList.remove('player--active'); // Ensures Player 1 is not active
 };
-init();
+init(); // Calls the function to set up the initial game state
 
 
-//funcion para cambiar de player
+// Switches the active player and resets the current score
 const switchPlayer = function () {
-  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  document.getElementById(`current--${activePlayer}`).textContent = 0; // Resets the current score for the active player on the screen
   currentScore = 0;
+  // Toggles between Player 0 and Player 1
   activePlayer = activePlayer === 0 ? 1 : 0;
 
+   // Toggles the active class to visually indicate the active player
   player0El.classList.toggle('player--active');
   player1El.classList.toggle('player--active');
 };
 
 
-//Funcionalidad al dado
+// Dice roll functionality
 btnRoll.addEventListener('click', function () {
   if (playing) {
-    //1.Genera un roll random al dado
+    // Generates a random dice roll between 1 and 6
     const dice = Math.trunc(Math.random() * 6) + 1;
 
-    //2.Muestra el dado
+    // Makes the dice image visible
     diceEl.classList.remove('hidden');
     diceEl.src = `img/dice-${dice}.png`;
 
-    //3.Checkea si el dado es 1
+    // If the roll is not 1:
     if (dice !== 1) {
-      //Si no es 1, agrega el puntaje del dado
+      // Add the roll value to the current score
       currentScore += dice;
 
-      //Va agregando puntaje al activePlayer, siempre y cuando no caiga dado 1
+      // Display the updated score
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore;
     } else {
-      //Sino cambia al otro player
-      //cambiando players entre player0 y player1
+      // Switches to the other player if the roll is 1
       switchPlayer();
     }
   }
 });
 
 
-//Funcionalidad para boton Hold
+// "Hold" button functionality to save the current score
 btnHold.addEventListener('click', function () {
   if (playing) {
-    //1. Agrega score al jugador activo
+    // Adds the current score to the active player's total score
     scores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
 
-    //2. Checkea si el score es >= 100
+    // Checks if the player has won, in case the score is >= 100
     if (scores[activePlayer] >= 100) {
-      //termina el juego
+      // Ends the game
       playing = false;
+      // Hides the dice
       diceEl.classList.add('hidden');
 
       document
         .querySelector(`.player--${activePlayer}`)
-        .classList.add('player--winner');
+        .classList.add('player--winner'); // Marks the player as the winner
 
       document
         .querySelector(`.player--${activePlayer}`)
-        .classList.remove('player--active');
+        .classList.remove('player--active'); // Removes the active status
     } else {
-      //3. Sino cambia de jugador
+      // Switches to the other player if the game is not yet won
       switchPlayer();
     }
   }
 });
 
-//Reiniciar el juego
-btnNew.addEventListener('click', init);
+// "New Game" button functionality to reset the game
+btnNew.addEventListener('click', init); // Resets the game state by re-initializing all variables and styles
